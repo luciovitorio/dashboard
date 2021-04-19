@@ -39,7 +39,7 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
           <a href="#">Categorias</a>
         </div>
         <div className="sidebar__link">
-          <i className="fa fa-cutlery"></i>
+          <i className="fa fa-power-off"></i>
           <a href="#">Pedidos</a>
         </div>
         <h2>Pessoas</h2>
@@ -50,22 +50,22 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
         <div className="sidebar__link">
           <i className="fa fa-user-circle"></i>
           <a href="#">Usuários</a>
-          <div className="sidebar__link">
-            <i className="fa fa-money"></i>
-            <a href="#">Pagamentos e custos</a>
-          </div>
-          <div className="sidebar__link">
-            <i className="fa fa-tasks"></i>
-            <a href="#">A plataforma</a>
-          </div>
-          <div className="sidebar__link">
-            <i className="fa fa-file-text"></i>
-            <a href="#">Política de privacidade</a>
-          </div>
-          <div className="sidebar__logout">
-            <i className="fa fa-tasks"></i>
-            <a href="#">Log out</a>
-          </div>
+        </div>
+        <div className="sidebar__link">
+          <i className="fa fa-power-off"></i>
+          <a href="#">Pagamentos e custos</a>
+        </div>
+        <div className="sidebar__link">
+          <i className="fa fa-tasks"></i>
+          <a href="#">A plataforma</a>
+        </div>
+        <div className="sidebar__link">
+          <i className="fa fa-power-off"></i>
+          <a href="#">Política de privacidade</a>
+        </div>
+        <div className="sidebar__logout">
+          <i className="fa fa-power-off"></i>
+          <a href="#">Log out</a>
         </div>
       </div>
     </div>
