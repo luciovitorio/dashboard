@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Navbar from './components/navbar/Navbar';
 import Sidebar from './components/sidebar/Sidebar';
-import Main from './components/sidebar/Main';
+import Main from './components/main/Main';
 
 const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
