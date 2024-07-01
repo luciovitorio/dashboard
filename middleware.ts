@@ -1,13 +1,10 @@
-import NextAuth from "next-auth";
-import authConfig from "@/auth.config";
+import { auth } from "@/auth";
 import {
   DEFAULT_LOGIN_REDIRECT,
   apiAuthPrefix,
   authRoutes,
   publicRoutes,
 } from "@/routes";
-
-const { auth } = NextAuth(authConfig);
 
 // Função que é executada toda vez que a rota da MATCH no objeto config abaixo
 export default auth((req) => {

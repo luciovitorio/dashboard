@@ -19,7 +19,7 @@ import { CardWrapper } from "@/components/auth/card-wrapper";
 import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
-import { login } from "@/actions/login";
+import login from "@/actions/login";
 
 export const LoginForm = () => {
   const [error, setError] = useState<string | undefined>("");
@@ -40,7 +40,7 @@ export const LoginForm = () => {
 
     startTransition(() => {
       login(values).then((data) => {
-        setError(data.error);
+        setError(data?.error);
         setSuccess(data.success);
       });
     });

@@ -1,10 +1,14 @@
 import NextAuth from "next-auth";
-import authConfig from "@/auth.config";
+import Credentials from "next-auth/providers/credentials";
+import GitHubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
+import { compareSync } from "bcrypt-ts";
 import { PrismaClient } from "@prisma/client";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import db from "./lib/db";
+import { LoginSchema } from "@/schemas";
+import { getUserByEmail } from "@/data/user";
 
-// const prisma = new PrismaClient();
+const prisma = new PrismaClient();
 
 export const {
   handlers: { GET, POST },
@@ -12,33 +16,38 @@ export const {
   signIn,
   signOut,
 } = NextAuth({
-  ...authConfig,
-  adapter: PrismaAdapter(db),
+  adapter: PrismaAdapter(prisma),
   session: {
     strategy: "jwt",
   },
-  // providers: [
-  // Credentials({
-  //   credentials: {
-  //     email: {},
-  //     password: {},
-  //   },
-  //   authorize: async (credentials) => {
-  //     const email = credentials.email as string;
-  //     const password = credentials.password as string;
-  //     if (!email || !password) {
-  //       return null;
-  //     }
-  //     const user = await db.user.findUnique({
-  //       where: {
-  //         email,
-  //       },
-  //     });
-  //     if (!user) return null;
-  //     const matches = compareSync(password, user.password ?? "");
-  //     if (matches) return user;
-  //     return null;
-  //   },
-  // }),
-  // ],
+  providers: [
+    Credentials({
+      credentials: {},
+      authorize: async (credentials) => {
+        const validateFields = LoginSchema.safeParse(credentials);
+
+        if (validateFields.success) {
+          const { email, password } = validateFields.data;
+
+          const user = await getUserByEmail(email);
+
+          console.log({ user });
+
+          if (!user || !user.password) {
+            return null;
+          }
+
+          const passwordMatches = compareSync(password, user.password);
+
+          if (passwordMatches) {
+            return user;
+          }
+        }
+
+        return null;
+      },
+    }),
+    GitHubProvider,
+    GoogleProvider,
+  ],
 });
